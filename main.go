@@ -26,16 +26,11 @@ func main() {
 		for {
 			connectSuccess = checkConnection()
 			if connectSuccess && !trayOn {
-				t := time.Now().Format("2006-01-02 15:04:05")
 				trayOn = true
-				tray.ShowIcon(iconOnData, "vpn on at "+t)
-				//tray.Show("icon/on.ico", "vpn on at "+t)
-
+				tray.ShowIcon(iconOnData, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
 			} else if !connectSuccess && trayOn {
-				t := time.Now().Format("2006-01-02 15:04:05")
 				trayOn = false
-				//tray.Show("icon/on.ico", "vpn off at "+t)
-				tray.ShowIcon(iconOffData, "vpn on at "+t)
+				tray.ShowIcon(iconOffData, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
 			}
 			time.Sleep(1 * time.Second)
 		}
