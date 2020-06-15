@@ -11,6 +11,6 @@
 
 生成内嵌图标的命令
 ```
-cat icon/on.ico |2goarray.exe iconOnData main >icondata.go
-cat icon/off.ico |2goarray.exe iconOffData main >>icondata.go
+cat icon/on.ico | 2goarray.exe iconOnData main > icondata.go
+cat icon/off.ico | 2goarray.exe iconOffData main >> icondata.go
 ```
