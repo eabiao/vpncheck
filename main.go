@@ -19,6 +19,10 @@ func main() {
 		os.Exit(0)
 	})
 
+	// 内嵌图标数据转换为临时文件路径
+	iconOnFile, _ := tray.IconBytesToFilePath(iconOnData)
+	iconOffFile, _ := tray.IconBytesToFilePath(iconOffData)
+
 	go func() {
 		trayOn := false
 		connectSuccess := false
@@ -27,10 +31,10 @@ func main() {
 			connectSuccess = checkConnection()
 			if connectSuccess && !trayOn {
 				trayOn = true
-				tray.ShowIcon(iconOnData, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
+				tray.Show(iconOnFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
 			} else if !connectSuccess && trayOn {
 				trayOn = false
-				tray.ShowIcon(iconOffData, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
+				tray.Show(iconOffFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
 			}
 			time.Sleep(1 * time.Second)
 		}

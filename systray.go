@@ -19,22 +19,10 @@ type Systray struct {
 	*_Systray
 }
 
-func (p *_Systray) ShowIcon(iconData []byte, hint string) {
-	iconFilePath, err := iconBytesToFilePath(iconData)
-	if err != nil {
-		log.Error(err.Error())
-	}
-
-	err = p.Show(iconFilePath, hint)
-	if err != nil {
-		log.Error(err.Error())
-	}
-}
-
-func iconBytesToFilePath(iconBytes []byte) (string, error) {
+func (p *_Systray) IconBytesToFilePath(iconBytes []byte) (string, error) {
 	bh := md5.Sum(iconBytes)
 	dataHash := hex.EncodeToString(bh[:])
-	iconFilePath := filepath.Join(os.TempDir(), "systray_temp_icon_"+dataHash)
+	iconFilePath := filepath.Join(os.TempDir(), "systray_temp_icon_"+dataHash+".ico")
 
 	if _, err := os.Stat(iconFilePath); os.IsNotExist(err) {
 		if err := ioutil.WriteFile(iconFilePath, iconBytes, 0644); err != nil {
