@@ -6,10 +6,10 @@
 - https://github.com/xilp/systray
 - https://github.com/cratonica/trayhost
 
-### 生成项目内嵌图标用到了以下工具
+### 生成内嵌图标用到了以下工具
 - https://github.com/cratonica/2goarray
 
-### 生成内嵌图标数据的命令
+### 生成内嵌图标的命令
 ```
 cat icon/on.ico |2goarray.exe iconOnData main >icondata.go
 cat icon/off.ico |2goarray.exe iconOffData main >>icondata.go
