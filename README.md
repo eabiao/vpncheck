@@ -6,7 +6,7 @@
 - https://github.com/xilp/systray
 - https://github.com/cratonica/trayhost
 
-生成内嵌图标用到了以下工具
+生成内嵌图标用到的工具
 - https://github.com/cratonica/2goarray
 
 生成内嵌图标的命令
