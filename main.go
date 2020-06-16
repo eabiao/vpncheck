@@ -15,35 +15,32 @@ var (
 func main() {
 	tray := systray.NewSysTray()
 
-	// 内嵌图标数据转换为临时文件路径
-	iconOnFile, _ := tray.IconBytesToFilePath(iconOnData)
-	iconOffFile, _ := tray.IconBytesToFilePath(iconOffData)
-
-	go setSysTray(tray, iconOnFile)
-
-	trayOn := false
-	connectSuccess := false
-
-	for {
-		connectSuccess = checkConnection()
-		if connectSuccess && !trayOn {
-			trayOn = true
-			tray.Show(iconOnFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
-		} else if !connectSuccess && trayOn {
-			trayOn = false
-			tray.Show(iconOffFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
-		}
-		time.Sleep(1 * time.Second)
-	}
-}
-
-func setSysTray(tray *systray.Systray, iconPath string) {
-	tray.Show(iconPath, "")
-
 	tray.OnRClick(func() {
 		os.Exit(0)
 	})
 
+	// 内嵌图标数据转换为临时文件路径
+	iconOnFile, _ := tray.IconBytesToFilePath(iconOnData)
+	iconOffFile, _ := tray.IconBytesToFilePath(iconOffData)
+
+	go func() {
+		trayOn := false
+		connectSuccess := false
+
+		for {
+			connectSuccess = checkConnection()
+			if connectSuccess && !trayOn {
+				trayOn = true
+				tray.Show(iconOnFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
+			} else if !connectSuccess && trayOn {
+				trayOn = false
+				tray.Show(iconOffFile, "vpn on at "+time.Now().Format("2006-01-02 15:04:05"))
+			}
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
+	tray.Show(iconOffFile, "")
 	tray.Run()
 }
 
